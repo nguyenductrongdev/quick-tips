@@ -9,6 +9,7 @@
     <h1>Iframe Window</h1>
 
     <div>Count: <span id="count">0</span></div>
+    <video src="{{ url_for('static', filename='videos/rap-thienmy.mp4') }}" id="video" controls autoplay muted></video>
 
     <script>
         const themeChannel = new BroadcastChannel("theme");
@@ -18,10 +19,14 @@
             if (event === "count") {
                 document.querySelector("#count").innerHTML = value;
             }
+            if(event === "audio") {
+                document.querySelector("#video").muted = !value;
+            }
         });
 
         themeChannel.addEventListener("message", function (e) {
             let { event, value } = e.data;
+
             if (event === "theme") {
                 switch (value) {
                     case "dark":

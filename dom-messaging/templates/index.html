@@ -2,29 +2,37 @@
 <html>
 
 <head>
-    <title>Parent Window</title>
+    <title>DOM Messaging Demo</title>
 </head>
 
 <body>
     <h1>Parent Window</h1>
     <button type="button" id="btnCount">Increase</button>
+    <button type="button" id="btnAudioToggle">Mute</button>
     <select id="sltTheme" style="width: 10vw;">
         <option value="light">Light</option>
         <option value="dark">Dark</option>
     </select>
 
-    <iframe id="counterIframe" src="iframe.html" style="width: 100%; height: 300px;"></iframe>
+    <iframe id="counterIframe" src="iframe.html" style="width: 100%; height: 300px;" allowfullscreen></iframe>
 
     <script>
         let count = 0;
+        let isEnabledAudio = false;
 
         const themeChannel = new BroadcastChannel("theme");
+        const iframeWindow = document.getElementById("counterIframe").contentWindow;
+
+        document.getElementById("btnAudioToggle").addEventListener("click", function () {
+            isEnabledAudio = !isEnabledAudio;
+            let payload = { event: "audio", value: isEnabledAudio };
+            iframeWindow.postMessage(payload)
+        });
 
         document.getElementById("btnCount").addEventListener("click", function () {
             count++;
             let payload = { event: "count", value: count };
-            document.getElementById("counterIframe").contentWindow.postMessage(payload, "*");
-            console.log("Click");
+            iframeWindow.postMessage(payload);
         });
 
         document.getElementById("sltTheme").addEventListener("change", function (e) {
