@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Iframe</title>
+</head>
+
+<body>
+    <h1>Iframe Window</h1>
+
+    <div>Count: <span id="count">0</span></div>
+
+    <script>
+        const themeChannel = new BroadcastChannel("theme");
+
+        window.addEventListener("message", function (e) {
+            let { event, value } = e.data;
+            if (event === "count") {
+                document.querySelector("#count").innerHTML = value;
+            }
+        });
+
+        themeChannel.addEventListener("message", function (e) {
+            let { event, value } = e.data;
+            if (event === "theme") {
+                switch (value) {
+                    case "dark":
+                        document.body.style.backgroundColor = "#333";
+                        break;
+                    case "light":
+                        document.body.style.backgroundColor = "#fff";
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
