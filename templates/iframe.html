@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Iframe</title>
+</head>
+
+<body>
+    <h1>Iframe Window</h1>
+
+    <div>Count: <span id="count">0</span></div>
+
+    <script>
+        window.addEventListener("message", function (e) {
+            console.log(e);
+            let { event, value } = e.data;
+            if (event === "count") {
+                document.querySelector("#count").innerHTML = value;
+            }
+        });
+    </script>
+</body>
+
+</html>
