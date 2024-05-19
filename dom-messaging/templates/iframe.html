@@ -9,7 +9,8 @@
     <h1>Iframe Window</h1>
 
     <div>Count: <span id="count">0</span></div>
-    <video src="{{ url_for('static', filename='videos/rap-thienmy.mp4') }}" id="video" controls autoplay muted></video>
+    <!-- <video src="{{ url_for('static', filename='videos/rap-thienmy.mp4') }}" id="video" controls autoplay muted></video> -->
+    <video src="http://localhost:5000/static/videos/rap-thienmy.mp4" id="video" controls autoplay muted></video>
 
     <script>
         const themeChannel = new BroadcastChannel("theme");
